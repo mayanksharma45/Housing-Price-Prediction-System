@@ -1,0 +1,95 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Adjusted to start from the top */
+    min-height: 100vh;
+}
+
+/* Form container */
+.login {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 50%;  /* Adjusted width */
+    text-align: center;
+    overflow-y: auto; /* Allow scrolling if needed */
+}
+
+/* Responsive form adjustments */
+@media (max-width: 768px) {
+    .login {
+        width: 80%;  /* Reduce width on smaller screens */
+    }
+}
+
+/* Form title */
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form labels */
+.form-label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Form input fields */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Input field focus effect */
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+/* Dropdown styling */
+select.form-control {
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Submit button */
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease-in-out;
+}
+
+/* Submit button hover effect */
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Predicted price display */
+h2 {
+    margin-top: 20px;
+    color: #28a745;
+    font-size: 22px;
+    font-weight: bold;
+}

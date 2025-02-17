@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Housing Price Prediction</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+<body>
+    <div class="login">
+   
+       <form action="{{ url_for('predict_datapoint')}}" method="post">
+        <h1>
+            <legend>Housing Price Prediction Indicator</legend>
+        </h1>
+        <div class="mb-3">
+            <label class="form-label">No of Bedrooms</label>
+            <input class="form-control" type="number" name="No_of_Bedrooms"
+                placeholder="Enter your no of bedrooms (eg. 6)" min='0' max='35' />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">No of Bathrooms</label>
+            <input class="form-control" type="number" name="No_of_Bathrooms"
+                placeholder="Enter your no of bathrooms (eg. 1.25)" min="0.00" max="8.00" step="0.25" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Flat Area (in sqft)</label>
+            <input class="form-control" type="number" name="Flat_Area"
+                placeholder="1960.0" step="any" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Lot Area (in sqft)</label>
+            <input class="form-control" type="number" name="Lot_Area"
+                placeholder="7242.0" step="any" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">No of Floors</label>
+            <input class="form-control" type="number" name="No_of_Floors"
+                placeholder="Enter your no of bathrooms (eg. 2)" min="1.0" max="4.0" step="0.5" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Waterfront View</label>
+            <select class="form-control" name="Waterfront_View" placeholder="Enter your Waterfront_View" required>
+                <option class="placeholder" selected disabled value="">Select Waterfront View</option>
+                <option value="no">NO</option>
+                <option value="yes">YES</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Condition of the House</label>
+            <select class="form-control" name="Condition_of_the_House" placeholder="Enter your Condition of the House" required>
+                <option class="placeholder" selected disabled value="">Select Condition of the House</option>
+                <option value="Fair">Fair</option>
+                <option value="Excellent">Excellent</option>
+                <option value="Good">Good</option>
+                <option value="Bad">Bad</option>
+                <option value="Okay">Okay</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Overall Grade</label>
+            <input class="form-control" type="number" name="Overall_Grade"
+                placeholder="Enter your grade out of 10" min='1' max='10' />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Area of the House from Basement (in sqft)</label>
+            <input class="form-control" type="number" name="Area_of_the_House_from_Basement"
+                placeholder="1300.0" step="any" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Basement Area (in sqft)</label>
+            <input class="form-control" type="number" name="Basement_Area"
+                placeholder="400" step="any" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Age of House</label>
+            <input class="form-control" type="number" name="Age_of_House"
+                placeholder="Enter your house_age out of 120" min='1' max='120' />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Zipcode</label>
+            <input class="form-control" type="number" name="Zipcode"
+                placeholder="98103.0" step="any" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Latitude</label>
+            <input class="form-control" type="number" name="Latitude"
+                placeholder="47.5322" step="any" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Longitude</label>
+            <input class="form-control" type="number" name="Longitude"
+                placeholder="-122.300" step="any" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Living Area after Renovation(in sqft)</label>
+            <input class="form-control" type="number" name="Living_Area_after_Renovation"
+                placeholder="1440.0" step="any" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Lot Area after Renovation(in sqft)</label>
+            <input class="form-control" type="number" name="Lot_Area_after_Renovation"
+                placeholder="5000" step="any" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Ever Renovated</label>
+            <select class="form-control" name="Ever_Renovated" placeholder="Enter your Ever Renovated" required>
+                <option class="placeholder" selected disabled value="">Select Ever Renovated</option>
+                <option value="no">NO</option>
+                <option value="yes">YES</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Years Since Renovation</label>
+            <input class="form-control" type="number" name="Years_Since_Renovation"
+                placeholder="6.214608" min="6.200000" max="6.400000" step="0.000001"  />
+        </div>
+        <div class="mb-3">
+            <input class="btn btn-primary" type="submit" value="Predict your Sale Price" required />
+        </div>
+    </form>
+    <h2>
+       THE PREDICTED SALE PRICE IS {{results}} INR
+    </h2>
+   <body>
+</html>
