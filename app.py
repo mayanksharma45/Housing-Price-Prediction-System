@@ -1,55 +1,138 @@
-from flask import Flask,request,render_template
-import numpy as np
+import streamlit as st
 import pandas as pd
 
-from src.pipeline.predict_pipeline import CustomData,PredictPipeline
+from src.pipeline.predict_pipeline import CustomData, PredictPipeline
 
-application=Flask(__name__)
+st.set_page_config(
+    page_title="Housing Price Prediction",
+    layout="centered"
+)
 
-app=application
+st.title("🏠 Housing Price Prediction Indicator")
+st.markdown("Enter the house details below:")
 
-## Route for a home page
+# ---------------- INPUT FIELDS ----------------
 
-@app.route('/')
-def index():
-    return render_template('index.html') 
+No_of_Bedrooms = st.number_input(
+    "No of Bedrooms",
+    min_value=0,
+    max_value=35,
+    step=1
+)
 
-@app.route('/predictdata',methods=['GET','POST'])
-def predict_datapoint():
-    if request.method=='GET':
-        return render_template('home.html')
-    else:
-        data=CustomData(
-            No_of_Bedrooms=int(request.form.get('No_of_Bedrooms')),
-            No_of_Bathrooms=float(request.form.get('No_of_Bathrooms')),
-            Flat_Area=float(request.form.get('Flat_Area')),
-            Lot_Area=float(request.form.get('Lot_Area')),
-            No_of_Floors=float(request.form.get('No_of_Floors')),
-            Waterfront_View=str(request.form.get('Waterfront_View')),
-            Condition_of_the_House=str(request.form.get('Condition_of_the_House')),
-            Overall_Grade=int(request.form.get('Overall_Grade')),
-            Area_of_the_House_from_Basement=float(request.form.get('Area_of_the_House_from_Basement')),
-            Basement_Area=int(request.form.get('Basement_Area')),
-            Age_of_House=int(request.form.get('Age_of_House')),
-            Zipcode=float(request.form.get('Zipcode')),
-            Latitude=float(request.form.get('Latitude')),
-            Longitude=float(request.form.get('Longitude')),
-            Living_Area_after_Renovation=float(request.form.get('Living_Area_after_Renovation')),
-            Lot_Area_after_Renovation=int(request.form.get('Lot_Area_after_Renovation')),
-            Ever_Renovated=str(request.form.get('Ever_Renovated')),
-            Years_Since_Renovation=float(request.form.get('Years_Since_Renovation')),
-        )
-        pred_df=data.get_data_as_data_frame()
-        print(pred_df)
-        print("Before Prediction")
+No_of_Bathrooms = st.number_input(
+    "No of Bathrooms",
+    min_value=0.0,
+    max_value=8.0,
+    step=0.25
+)
 
-        predict_pipeline=PredictPipeline()
-        print("Mid Prediction")
-        results=predict_pipeline.predict(pred_df)
-        print("after Prediction")
-        return render_template('home.html',results=results[0])
-    
+Flat_Area = st.number_input(
+    "Flat Area (in sqft)",
+    min_value=0.0
+)
 
-if __name__=="__main__":
-    app.run(host="0.0.0.0", debug=True)        
+Lot_Area = st.number_input(
+    "Lot Area (in sqft)",
+    min_value=0.0
+)
 
+No_of_Floors = st.number_input(
+    "No of Floors",
+    min_value=1.0,
+    max_value=4.0,
+    step=0.5
+)
+
+Waterfront_View = st.selectbox(
+    "Waterfront View",
+    options=["NO", "YES"]  
+)
+
+Condition_of_the_House = st.selectbox(
+    "Condition of the House",
+    options=["Fair", "Excellent", "Good", "Bad", "Okay"]
+)
+
+Overall_Grade = st.number_input(
+    "Overall Grade (out of 10)",
+    min_value=1,
+    max_value=10,
+    step=1
+)
+
+Area_of_the_House_from_Basement = st.number_input(
+    "Area of the House from Basement (in sqft)",
+    min_value=0.0
+)
+
+Basement_Area = st.number_input(
+    "Basement Area (in sqft)",
+    min_value=0
+)
+
+Age_of_House = st.number_input(
+    "Age of House (years)",
+    min_value=1,
+    max_value=120,
+    step=1
+)
+
+Zipcode = st.number_input(
+    "Zipcode",
+    min_value=0.0
+)
+
+Latitude = st.number_input("Latitude")
+Longitude = st.number_input("Longitude")
+
+Living_Area_after_Renovation = st.number_input(
+    "Living Area after Renovation (in sqft)",
+    min_value=0.0
+)
+
+Lot_Area_after_Renovation = st.number_input(
+    "Lot Area after Renovation (in sqft)",
+    min_value=0
+)
+
+Ever_Renovated = st.selectbox(
+    "Ever Renovated",
+    options=["NO", "YES"]
+)
+
+Years_Since_Renovation = st.number_input(
+    "Years Since Renovation",
+    min_value=0.0
+)
+
+# ---------------- PREDICTION ----------------
+
+if st.button("Predict your Sale Price"):
+    data = CustomData(
+        No_of_Bedrooms=No_of_Bedrooms,
+        No_of_Bathrooms=No_of_Bathrooms,
+        Flat_Area=Flat_Area,
+        Lot_Area=Lot_Area,
+        No_of_Floors=No_of_Floors,
+        Waterfront_View=Waterfront_View,
+        Condition_of_the_House=Condition_of_the_House,
+        Overall_Grade=Overall_Grade,
+        Area_of_the_House_from_Basement=Area_of_the_House_from_Basement,
+        Basement_Area=Basement_Area,
+        Age_of_House=Age_of_House,
+        Zipcode=Zipcode,
+        Latitude=Latitude,
+        Longitude=Longitude,
+        Living_Area_after_Renovation=Living_Area_after_Renovation,
+        Lot_Area_after_Renovation=Lot_Area_after_Renovation,
+        Ever_Renovated=Ever_Renovated,
+        Years_Since_Renovation=Years_Since_Renovation,
+    )
+
+    df = data.get_data_as_data_frame()
+
+    pipeline = PredictPipeline()
+    prediction = pipeline.predict(df)
+
+    st.success(f"💰 THE PREDICTED SALE PRICE IS {prediction[0]:,.2f} INR")

@@ -59,5 +59,5 @@ if __name__=="__main__":
     train_arr,test_arr,_ = data_transformation.initiate_data_transformation(train_data,test_data)
     print("First 5 rows of train_arr:\n", train_arr[:5])
 
-    # modeltrainer = ModelTrainer()
-    # modeltrainer.initiate_model_trainer(train_arr,test_arr)
+    modeltrainer = ModelTrainer()
+    modeltrainer.initiate_model_trainer(train_arr,test_arr)
